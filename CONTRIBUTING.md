@@ -116,20 +116,22 @@ export default MyIcon;
 
 ### 2. Checklist
 - [ ] **Export it**: Add your export to `src/index.ts`.
-- [ ] **Test it**: Add it to `playground/src/App.tsx` and run `npm run dev` to see it in action.
+- [ ] **Test it Locally**: Add your icon to the `icons` array in `playground/src/pages/Playground.tsx` to verify your animation feels right. (Registration in the official playground grid will be handled by the maintainer during the PR review).
 - [ ] **Verify Colors**: Ensure `stroke={color}` or `fill={color}` is correctly applied.
 
 ## Development Setup
 
 1. Clone the repository.
-2. Install dependencies: `npm install`.
-3. Start the build in watch mode: `npm run build -- --watch` or simply use the playground for live feedback.
-4. Open the playground to test your changes: `cd playground && npm install && npm run dev`.
+2. Install dependencies at the root: `npm install`.
+3. Build everything: `npm run build:all`.
+4. Start development mode:
+   - Root (Library): `npm run dev`
+   - Playground: `npm run dev -w playground`
 
 ## Pull Requests Check
 - Keep PRs focused.
 - Include a description of the animation (e.g., "Hover: Wiggles, Click: Explodes").
-- Ensure no lint/build errors (`npm run build`).
+- Ensure no lint/build errors (`npm run build:all`).
 
 ## License
 

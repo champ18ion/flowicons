@@ -79,6 +79,9 @@ export { default as Target } from "./icons/Target";
 export { default as LayoutSidebarRight } from "./icons/LayoutSidebarRight";
 export { default as CurrencyRupee } from "./icons/CurrencyRupee";
 
+// Core Types
+export * from "./core/types";
+
 
 
 

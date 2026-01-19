@@ -9,7 +9,7 @@ interface LandingProps {
 export default function Landing({ onEnter }: LandingProps) {
     const [copied, setCopied] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const installCmd = "npm install flowicons";
+    const installCmd = "npm install @champ18ion/flowicons";
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -258,13 +258,13 @@ export default function Landing({ onEnter }: LandingProps) {
                                     <div className="w-3 h-3 rounded-full bg-green-500/30" />
                                 </div>
                                 <div className="space-y-1">
-                                    <p><span className="text-purple-400">import</span> {"{"} <span className="text-blue-400">FlowIcon, Bell</span> {"}"} <span className="text-purple-400">from</span> <span className="text-emerald-400">'flowicons'</span>;</p>
+                                    <p><span className="text-purple-400">import</span> {"{"} <span className="text-blue-400">FlowIcon, Bell</span> {"}"} <span className="text-purple-400">from</span> <span className="text-emerald-400">'@champ18ion/flowicons'</span>;</p>
                                     <p>&nbsp;</p>
                                     <p><span className="text-purple-400">function</span> <span className="text-blue-400">Hero</span>() {"{"}</p>
                                     <p>&nbsp;&nbsp;<span className="text-purple-400">return</span> (</p>
                                     <p>&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span className="text-blue-400">div</span> <span className="text-brand-400">className</span>=<span className="text-emerald-400">"flex gap-4"</span>&gt;</p>
                                     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span className="text-yellow-400">FlowIcon</span> <span className="text-brand-400">size</span>={"{48}"} <span className="text-brand-400">color</span>=<span className="text-emerald-400">"#0ea5e9"</span> /&gt;</p>
-                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span className="text-yellow-400">Bell</span> <span className="text-brand-400">animate</span>={"{true}"} <span className="text-brand-400">stroke</span>={"{2}"} /&gt;</p>
+                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span className="text-yellow-400">Bell</span> <span className="text-brand-400">loading</span>={"{true}"} <span className="text-brand-400">strokeWidth</span>={"{2}"} /&gt;</p>
                                     <p>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span className="text-blue-400">div</span>&gt;</p>
                                     <p>&nbsp;&nbsp;);</p>
                                     <p>{"}"}</p>
