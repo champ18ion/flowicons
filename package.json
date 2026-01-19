@@ -1,0 +1,63 @@
+{
+  "name": "@champ18ion/flowicons",
+  "version": "0.0.1",
+  "description": "Lightweight animated React icon library",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.8",
+    "@types/react-dom": "^19.2.3",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
+  },
+  "keywords": [
+    "react",
+    "icons",
+    "animated-icons",
+    "framer-motion",
+    "motion",
+    "ui",
+    "components"
+  ],
+  "author": "champ18ion",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "motion": "^12.25.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/champ18ion/flowicons.git"
+  },
+  "bugs": {
+    "url": "https://github.com/champ18ion/flowicons/issues"
+  },
+  "homepage": "https://github.com/champ18ion/flowicons#readme"
+}

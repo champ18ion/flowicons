@@ -1,0 +1,14 @@
+# Exclude playground and documentation
+playground/
+CONTRIBUTING.md
+.gitignore
+.npmignore
+
+# Exclude source files (unless they are needed for some reason, but usually just dist is enough)
+src/
+tsconfig.json
+tsup.config.ts
+
+# Exclude build artifacts (already covered by files field in package.json, but good to have)
+node_modules/
+dist/*.map
