@@ -1,6 +1,6 @@
 {
   "name": "@champ18ion/flowicons",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Lightweight animated React icon library",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -20,6 +20,8 @@
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup",
+    "build:playground": "npm run build -w playground",
+    "build:all": "npm run build && npm run build:playground",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run build"
   },
@@ -59,5 +61,9 @@
   "bugs": {
     "url": "https://github.com/champ18ion/flowicons/issues"
   },
-  "homepage": "https://github.com/champ18ion/flowicons#readme"
+  "homepage": "https://github.com/champ18ion/flowicons#readme",
+  "workspaces": [
+    ".",
+    "playground"
+  ]
 }
