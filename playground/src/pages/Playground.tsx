@@ -4,7 +4,7 @@ import {
     PlayCircle, ChevronDown, ChevronUp, ChevronLeft, ChevronRight,
     ChartBar, DotsVertical, RosetteDiscount,
     Target, LayoutSidebarRight, CurrencyRupee, FlowIcon, Sparkle
-} from "@champ18ion/flowicons";
+, Download, Upload, User, Save, Info, Plus, Minus, Image, Video, Music, Calendar, Folder, File, MapPin, Map, Cloud, Sun, Zap, Share, Printer, Monitor} from "@champ18ion/flowicons";
 import { useState, useMemo } from "react";
 import IconCard from "../components/IconCard";
 import { motion, AnimatePresence } from "framer-motion";
@@ -22,6 +22,27 @@ export default function Playground({ onBack }: PlaygroundProps) {
     const [showSettings, setShowSettings] = useState(false);
 
     const icons = useMemo(() => [
+        { name: "Download", Component: Download },
+        { name: "Upload", Component: Upload },
+        { name: "User", Component: User },
+        { name: "Save", Component: Save },
+        { name: "Info", Component: Info },
+        { name: "Plus", Component: Plus },
+        { name: "Minus", Component: Minus },
+        { name: "Image", Component: Image },
+        { name: "Video", Component: Video },
+        { name: "Music", Component: Music },
+        { name: "Calendar", Component: Calendar },
+        { name: "Folder", Component: Folder },
+        { name: "File", Component: File },
+        { name: "MapPin", Component: MapPin },
+        { name: "Map", Component: Map },
+        { name: "Cloud", Component: Cloud },
+        { name: "Sun", Component: Sun },
+        { name: "Zap", Component: Zap },
+        { name: "Share", Component: Share },
+        { name: "Printer", Component: Printer },
+        { name: "Monitor", Component: Monitor },
         { name: "Airplane", Component: Airplane },
         { name: "AlarmClockPlus", Component: AlarmClockPlus },
         { name: "ArrowBigDown", Component: ArrowBigDown },
