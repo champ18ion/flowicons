@@ -9,24 +9,22 @@ const Plus = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
   ) => {
     const [scope, animate] = useAnimate();
 
-    // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
       animate(".icon-element", { rotate: 90 }, { duration: 1, repeat: Infinity, ease: "linear" });
     }, [animate]);
 
-    // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-      animate(".icon-element", { scale: [1, 1.1, 1] }, { duration: 0.8, repeat: Infinity, ease: "easeInOut" });
+      animate(".icon-element", { rotate: [0, 15, -15, 0] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
-    // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".icon-element", { rotate: 90, scale: 1.2 }, { duration: 0.15 }); await animate(".icon-element", { rotate: 180, scale: 1 }, { duration: 0.2, type: "spring" }); animate(".icon-element", { rotate: 0 }, { duration: 0 });
+      await animate(".icon-element", { scale: 1.2, rotate: 90 }, { duration: 0.15 });
+      await animate(".icon-element", { scale: 1, rotate: 180 }, { duration: 0.2, type: "spring" });
+      animate(".icon-element", { rotate: 0 }, { duration: 0 });
     }, [animate]);
 
-    // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".icon-element", { scale: 1, opacity: 1, y: 0, x: 0, rotate: 0 }, { duration: 0.2 });
+      animate(".icon-element", { scale: 1, rotate: 0 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -59,7 +57,8 @@ const Plus = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         whileTap={{ scale: 0.95 }}
       >
         <motion.g className="icon-element" style={{ transformOrigin: "50% 50%" }}>
-          <path d="M5 12h14"></path><path d="M12 5v14"></path>
+          <path d="M5 12h14"></path>
+          <path d="M12 5v14"></path>
         </motion.g>
       </motion.svg>
     );

@@ -9,24 +9,25 @@ const Info = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
   ) => {
     const [scope, animate] = useAnimate();
 
-    // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".icon-element", { opacity: [0.5, 1, 0.5] }, { duration: 1.5, repeat: Infinity, ease: "easeInOut" });
+      animate(".dot", { opacity: [1, 0, 1] }, { duration: 1, repeat: Infinity, ease: "linear" });
     }, [animate]);
 
-    // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-      animate(".icon-element", { rotate: [0, 10, -10, 0] }, { duration: 0.8, repeat: Infinity, ease: "easeInOut" });
+      animate(".line", { y: [0, -1, 0] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
-    // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".icon-element", { rotate: 180 }, { duration: 0.3, ease: "easeInOut" }); await animate(".icon-element", { rotate: 360 }, { duration: 0.3, ease: "easeInOut" }); animate(".icon-element", { rotate: 0 }, { duration: 0 });
+      animate(".dot", { y: -2, scale: 1.5 }, { duration: 0.1 });
+      animate(".line", { y: 2, scaleY: 0.8 }, { duration: 0.1 });
+      await new Promise(resolve => setTimeout(resolve, 100));
+      animate(".dot", { y: 0, scale: 1 }, { duration: 0.2, type: "spring", bounce: 0.6 });
+      animate(".line", { y: 0, scaleY: 1 }, { duration: 0.2, type: "spring", bounce: 0.6 });
     }, [animate]);
 
-    // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".icon-element", { scale: 1, opacity: 1, y: 0, x: 0, rotate: 0 }, { duration: 0.2 });
+      animate(".dot", { opacity: 1, y: 0, scale: 1 }, { duration: 0.2 });
+      animate(".line", { y: 0, scaleY: 1 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,9 +59,9 @@ const Info = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.g className="icon-element" style={{ transformOrigin: "50% 50%" }}>
-          <circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path>
-        </motion.g>
+        <circle cx="12" cy="12" r="10"></circle>
+        <motion.path className="line" d="M12 16v-4" style={{ transformOrigin: "50% 100%" }}></motion.path>
+        <motion.path className="dot" d="M12 8h.01"></motion.path>
       </motion.svg>
     );
   }

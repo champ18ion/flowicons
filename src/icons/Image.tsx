@@ -9,24 +9,23 @@ const Image = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
   ) => {
     const [scope, animate] = useAnimate();
 
-    // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".icon-element", { opacity: [0.4, 1, 0.4] }, { duration: 1.5, repeat: Infinity, ease: "easeInOut" });
+      animate(".sun", { scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }, { duration: 1.5, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
-    // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-      animate(".icon-element", { scale: [1, 1.05, 1] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
+      animate(".sun", { y: [0, -1, 0], scale: [1, 1.1, 1] }, { duration: 1.2, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
-    // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".icon-element", { scale: 0.9 }, { duration: 0.1 }); await animate(".icon-element", { scale: 1.1 }, { duration: 0.15 }); await animate(".icon-element", { scale: 1 }, { duration: 0.2, type: "spring", bounce: 0.5 });
+      animate(".mountains", { y: [0, 2, 0] }, { duration: 0.3 });
+      await animate(".sun", { y: -4, scale: 1.5, rotate: 45 }, { duration: 0.15 });
+      await animate(".sun", { y: 0, scale: 1, rotate: 0 }, { duration: 0.3, type: "spring", bounce: 0.6 });
     }, [animate]);
 
-    // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".icon-element", { scale: 1, opacity: 1, y: 0, x: 0, rotate: 0 }, { duration: 0.2 });
+      animate(".sun", { y: 0, scale: 1, opacity: 1, rotate: 0 }, { duration: 0.2 });
+      animate(".mountains", { y: 0 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,9 +57,9 @@ const Image = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.g className="icon-element" style={{ transformOrigin: "50% 50%" }}>
-          <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
-        </motion.g>
+        <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
+        <motion.circle className="sun" style={{ transformOrigin: "9px 9px" }} cx="9" cy="9" r="2"></motion.circle>
+        <motion.path className="mountains" d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></motion.path>
       </motion.svg>
     );
   }

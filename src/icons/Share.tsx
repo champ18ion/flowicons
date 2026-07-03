@@ -9,24 +9,22 @@ const Share = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
   ) => {
     const [scope, animate] = useAnimate();
 
-    // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".icon-element", { y: [0, -2, 0] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
+      animate(".arrow", { y: [0, -4, 0] }, { duration: 1.2, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
-    // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-      animate(".icon-element", { rotate: [0, 5, -5, 0] }, { duration: 0.8, repeat: Infinity, ease: "easeInOut" });
+      animate(".arrow", { y: [0, -2, 0] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
-    // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".icon-element", { y: -3 }, { duration: 0.1 }); await animate(".icon-element", { y: 0 }, { duration: 0.3, type: "spring", bounce: 0.6 });
+      await animate(".arrow", { y: -8, opacity: 0 }, { duration: 0.2 });
+      animate(".arrow", { y: 8, opacity: 0 }, { duration: 0 });
+      await animate(".arrow", { y: 0, opacity: 1 }, { duration: 0.3, type: "spring", bounce: 0.6 });
     }, [animate]);
 
-    // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".icon-element", { scale: 1, opacity: 1, y: 0, x: 0, rotate: 0 }, { duration: 0.2 });
+      animate(".arrow", { y: 0, opacity: 1 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,9 +56,11 @@ const Share = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.g className="icon-element" style={{ transformOrigin: "50% 50%" }}>
-          <path d="M12 2v13"></path><path d="m16 6-4-4-4 4"></path><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+        <motion.g className="arrow">
+          <path d="M12 2v13"></path>
+          <path d="m16 6-4-4-4 4"></path>
         </motion.g>
+        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
       </motion.svg>
     );
   }

@@ -11,22 +11,25 @@ const Upload = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 
     // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".icon-element", { y: [0, -2, 0] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
+      animate(".arrow", { y: [0, -4, 0] }, { duration: 1.2, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
     // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-      animate(".icon-element", { y: [0, -1, 0] }, { duration: 0.5, repeat: Infinity, ease: "easeInOut" });
+      animate(".arrow", { y: [0, -2, 0] }, { duration: 0.8, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
     // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".icon-element", { y: -3 }, { duration: 0.1 }); await animate(".icon-element", { y: 0 }, { duration: 0.2, type: "spring", bounce: 0.5 });
+      await animate(".arrow", { y: -6 }, { duration: 0.1 });
+      await animate(".arrow", { y: -10, opacity: 0 }, { duration: 0.1 });
+      animate(".arrow", { y: 10, opacity: 0 }, { duration: 0 });
+      await animate(".arrow", { y: 0, opacity: 1 }, { duration: 0.3, type: "spring", bounce: 0.5 });
     }, [animate]);
 
     // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".icon-element", { scale: 1, opacity: 1, y: 0, x: 0, rotate: 0 }, { duration: 0.2 });
+      animate(".arrow", { y: 0, opacity: 1 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,9 +61,11 @@ const Upload = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.g className="icon-element" style={{ transformOrigin: "50% 50%" }}>
-          <path d="M12 3v12"></path><path d="m17 8-5-5-5 5"></path><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+        <motion.g className="arrow" style={{ transformOrigin: "50% 50%" }}>
+          <path d="M12 3v12"></path>
+          <path d="m17 8-5-5-5 5"></path>
         </motion.g>
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
       </motion.svg>
     );
   }

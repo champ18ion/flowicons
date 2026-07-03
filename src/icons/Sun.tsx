@@ -9,24 +9,28 @@ const Sun = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
   ) => {
     const [scope, animate] = useAnimate();
 
-    // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".icon-element", { rotate: [0, 90] }, { duration: 2, repeat: Infinity, ease: "linear" });
+      animate(".sun-group", { rotate: 90 }, { duration: 3, repeat: Infinity, ease: "linear" });
+      animate(".core", { scale: [1, 1.2, 1] }, { duration: 1.5, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
-    // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-      animate(".icon-element", { scale: [1, 1.1, 1] }, { duration: 1.5, repeat: Infinity, ease: "easeInOut" });
+      animate(".sun-group", { rotate: [0, 15, -15, 0] }, { duration: 2, repeat: Infinity, ease: "easeInOut" });
+      animate(".rays", { scale: [1, 1.1, 1] }, { duration: 1.5, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
-    // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".icon-element", { rotate: 45, scale: 1.2 }, { duration: 0.15 }); await animate(".icon-element", { rotate: 90, scale: 1 }, { duration: 0.3, type: "spring", bounce: 0.6 }); animate(".icon-element", { rotate: 0 }, { duration: 0 });
+      animate(".core", { scale: 1.3 }, { duration: 0.1 });
+      await animate(".rays", { scale: 0.8, opacity: 0 }, { duration: 0.15 });
+      animate(".core", { scale: 1 }, { duration: 0.4, type: "spring", bounce: 0.6 });
+      await animate(".rays", { scale: 1.2, opacity: 1 }, { duration: 0.15 });
+      await animate(".rays", { scale: 1 }, { duration: 0.3, type: "spring", bounce: 0.5 });
     }, [animate]);
 
-    // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".icon-element", { scale: 1, opacity: 1, y: 0, x: 0, rotate: 0 }, { duration: 0.2 });
+      animate(".sun-group", { rotate: 0 }, { duration: 0.2 });
+      animate(".core", { scale: 1 }, { duration: 0.2 });
+      animate(".rays", { scale: 1, opacity: 1 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,8 +62,18 @@ const Sun = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.g className="icon-element" style={{ transformOrigin: "50% 50%" }}>
-          <circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path>
+        <motion.g className="sun-group" style={{ transformOrigin: "12px 12px" }}>
+          <motion.circle className="core" style={{ transformOrigin: "12px 12px" }} cx="12" cy="12" r="4"></motion.circle>
+          <motion.g className="rays" style={{ transformOrigin: "12px 12px" }}>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </motion.g>
         </motion.g>
       </motion.svg>
     );

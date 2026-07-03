@@ -9,24 +9,26 @@ const Zap = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
   ) => {
     const [scope, animate] = useAnimate();
 
-    // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".icon-element", { opacity: [1, 0, 1] }, { duration: 0.8, repeat: Infinity, ease: "linear" });
+      animate(".bolt", { opacity: [1, 0.4, 1] }, { duration: 0.5, repeat: Infinity, ease: "linear" });
     }, [animate]);
 
-    // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-      animate(".icon-element", { scale: [1, 1.1, 1] }, { duration: 0.5, repeat: Infinity, ease: "easeInOut" });
+      animate(".bolt", { y: [0, -2, 0], scale: [1, 1.05, 1] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
-    // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".icon-element", { scale: 1.3, rotate: 15 }, { duration: 0.1 }); await animate(".icon-element", { scale: 1, rotate: 0 }, { duration: 0.2, type: "spring", bounce: 0.6 });
-    }, [animate]);
+      animate(".bolt", { scale: 1.5, rotate: 10, fill: color }, { duration: 0.1 });
+      await new Promise(r => setTimeout(r, 100));
+      animate(".bolt", { scale: 0.8, rotate: -5, fill: "transparent" }, { duration: 0.1 });
+      await new Promise(r => setTimeout(r, 100));
+      animate(".bolt", { scale: 1.2, rotate: 0, fill: color }, { duration: 0.1 });
+      await new Promise(r => setTimeout(r, 100));
+      animate(".bolt", { scale: 1, rotate: 0, fill: "transparent" }, { duration: 0.3, type: "spring", bounce: 0.6 });
+    }, [animate, color]);
 
-    // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".icon-element", { scale: 1, opacity: 1, y: 0, x: 0, rotate: 0 }, { duration: 0.2 });
+      animate(".bolt", { y: 0, scale: 1, opacity: 1, rotate: 0, fill: "transparent" }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,9 +60,7 @@ const Zap = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.g className="icon-element" style={{ transformOrigin: "50% 50%" }}>
-          <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path>
-        </motion.g>
+        <motion.path className="bolt" style={{ transformOrigin: "12px 12px" }} d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></motion.path>
       </motion.svg>
     );
   }
