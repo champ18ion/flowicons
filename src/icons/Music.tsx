@@ -9,24 +9,31 @@ const Music = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
   ) => {
     const [scope, animate] = useAnimate();
 
-    // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".icon-element", { y: [0, -2, 0] }, { duration: 0.8, repeat: Infinity, ease: "easeInOut" });
+      animate(".note1", { y: [0, -2, 0] }, { duration: 0.8, repeat: Infinity, ease: "easeInOut" });
+      animate(".note2", { y: [0, -2, 0] }, { duration: 0.8, delay: 0.2, repeat: Infinity, ease: "easeInOut" });
+      animate(".beam", { rotate: [0, -2, 2, 0] }, { duration: 0.8, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
-    // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-      animate(".icon-element", { rotate: [0, -5, 5, 0] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
+      animate(".note1", { rotate: [0, 10, -10, 0] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
+      animate(".note2", { rotate: [0, -10, 10, 0] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
-    // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".icon-element", { y: -4, scale: 1.1 }, { duration: 0.15 }); await animate(".icon-element", { y: 0, scale: 1 }, { duration: 0.3, type: "spring", bounce: 0.6 });
+      animate(".beam", { y: -4 }, { duration: 0.1 });
+      await animate(".note1", { scale: 1.2, y: 2 }, { duration: 0.1 });
+      await animate(".note2", { scale: 1.2, y: 2 }, { duration: 0.1 });
+
+      animate(".beam", { y: 0 }, { duration: 0.3, type: "spring", bounce: 0.6 });
+      animate(".note1", { scale: 1, y: 0 }, { duration: 0.3, type: "spring", bounce: 0.6 });
+      await animate(".note2", { scale: 1, y: 0 }, { duration: 0.3, type: "spring", bounce: 0.6 });
     }, [animate]);
 
-    // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".icon-element", { scale: 1, opacity: 1, y: 0, x: 0, rotate: 0 }, { duration: 0.2 });
+      animate(".note1", { scale: 1, y: 0, rotate: 0 }, { duration: 0.2 });
+      animate(".note2", { scale: 1, y: 0, rotate: 0 }, { duration: 0.2 });
+      animate(".beam", { y: 0, rotate: 0 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,9 +65,9 @@ const Music = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.g className="icon-element" style={{ transformOrigin: "50% 50%" }}>
-          <path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle>
-        </motion.g>
+        <motion.path className="beam" style={{ transformOrigin: "15px 5px" }} d="M9 18V5l12-2v13"></motion.path>
+        <motion.circle className="note1" style={{ transformOrigin: "6px 18px" }} cx="6" cy="18" r="3"></motion.circle>
+        <motion.circle className="note2" style={{ transformOrigin: "18px 16px" }} cx="18" cy="16" r="3"></motion.circle>
       </motion.svg>
     );
   }

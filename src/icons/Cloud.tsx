@@ -9,24 +9,22 @@ const Cloud = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
   ) => {
     const [scope, animate] = useAnimate();
 
-    // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".icon-element", { x: [-2, 2, -2] }, { duration: 2, repeat: Infinity, ease: "easeInOut" });
+      animate(".cloud", { x: [-2, 2, -2] }, { duration: 2.5, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
-    // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-      animate(".icon-element", { y: [0, -2, 0] }, { duration: 1.5, repeat: Infinity, ease: "easeInOut" });
+      animate(".cloud", { y: [0, -1, 0] }, { duration: 1.5, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
-    // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".icon-element", { scale: 1.1 }, { duration: 0.1 }); await animate(".icon-element", { scale: 1 }, { duration: 0.3, type: "spring", bounce: 0.6 });
+      await animate(".cloud", { scale: 1.1, y: -3 }, { duration: 0.15 });
+      await animate(".cloud", { scale: 0.95, y: 1 }, { duration: 0.15 });
+      await animate(".cloud", { scale: 1, y: 0 }, { duration: 0.3, type: "spring", bounce: 0.6 });
     }, [animate]);
 
-    // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".icon-element", { scale: 1, opacity: 1, y: 0, x: 0, rotate: 0 }, { duration: 0.2 });
+      animate(".cloud", { x: 0, y: 0, scale: 1 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,9 +56,7 @@ const Cloud = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.g className="icon-element" style={{ transformOrigin: "50% 50%" }}>
-          <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
-        </motion.g>
+        <motion.path className="cloud" style={{ transformOrigin: "12px 14px" }} d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></motion.path>
       </motion.svg>
     );
   }
