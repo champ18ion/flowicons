@@ -88,3 +88,24 @@ export * from "./core/types";
 
 
 
+export { default as Download } from "./icons/Download";
+export { default as Upload } from "./icons/Upload";
+export { default as User } from "./icons/User";
+export { default as Save } from "./icons/Save";
+export { default as Info } from "./icons/Info";
+export { default as Plus } from "./icons/Plus";
+export { default as Minus } from "./icons/Minus";
+export { default as Image } from "./icons/Image";
+export { default as Video } from "./icons/Video";
+export { default as Music } from "./icons/Music";
+export { default as Calendar } from "./icons/Calendar";
+export { default as Folder } from "./icons/Folder";
+export { default as File } from "./icons/File";
+export { default as MapPin } from "./icons/MapPin";
+export { default as Map } from "./icons/Map";
+export { default as Cloud } from "./icons/Cloud";
+export { default as Sun } from "./icons/Sun";
+export { default as Zap } from "./icons/Zap";
+export { default as Share } from "./icons/Share";
+export { default as Printer } from "./icons/Printer";
+export { default as Monitor } from "./icons/Monitor";
