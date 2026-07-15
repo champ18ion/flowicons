@@ -4,7 +4,7 @@ import {
     PlayCircle, ChevronDown, ChevronUp, ChevronLeft, ChevronRight,
     ChartBar, DotsVertical, RosetteDiscount,
     Target, LayoutSidebarRight, CurrencyRupee, FlowIcon, Sparkle
-, Download, Upload, User, Save, Info, Plus, Minus, Image, Video, Music, Calendar, Folder, File, MapPin, Map, Cloud, Sun, Zap, Share, Printer, Monitor} from "@champ18ion/flowicons";
+, Download, Upload, User, Save, Info, Plus, Minus, Image, Video, Music, Calendar, Folder, File, MapPin, Map, Cloud, Sun, Zap, Share, Printer, Monitor, Activity, Anchor, Award, BaggageClaim, Balloon, Ban, Banknote, Baseline, Bath, Battery, Beaker, Bed, Bike, Biohazard, Bird, Bluetooth, Bone, Box, Briefcase, Bug, Building, Bus, Cable, Calculator, Car, Carrot, Cast, Cat, ChefHat, Cherry, Compass, Church, CigaretteOff, Cigarette, Citrus, Clapperboard, Clipboard, CloudRain, Clover, Code} from "@champ18ion/flowicons";
 import { useState, useMemo } from "react";
 import IconCard from "../components/IconCard";
 import { motion, AnimatePresence } from "framer-motion";
@@ -22,6 +22,46 @@ export default function Playground({ onBack }: PlaygroundProps) {
     const [showSettings, setShowSettings] = useState(false);
 
     const icons = useMemo(() => [
+        { name: "Activity", Component: Activity },
+        { name: "Anchor", Component: Anchor },
+        { name: "Award", Component: Award },
+        { name: "BaggageClaim", Component: BaggageClaim },
+        { name: "Balloon", Component: Balloon },
+        { name: "Ban", Component: Ban },
+        { name: "Banknote", Component: Banknote },
+        { name: "Baseline", Component: Baseline },
+        { name: "Bath", Component: Bath },
+        { name: "Battery", Component: Battery },
+        { name: "Beaker", Component: Beaker },
+        { name: "Bed", Component: Bed },
+        { name: "Bike", Component: Bike },
+        { name: "Biohazard", Component: Biohazard },
+        { name: "Bird", Component: Bird },
+        { name: "Bluetooth", Component: Bluetooth },
+        { name: "Bone", Component: Bone },
+        { name: "Box", Component: Box },
+        { name: "Briefcase", Component: Briefcase },
+        { name: "Bug", Component: Bug },
+        { name: "Building", Component: Building },
+        { name: "Bus", Component: Bus },
+        { name: "Cable", Component: Cable },
+        { name: "Calculator", Component: Calculator },
+        { name: "Car", Component: Car },
+        { name: "Carrot", Component: Carrot },
+        { name: "Cast", Component: Cast },
+        { name: "Cat", Component: Cat },
+        { name: "ChefHat", Component: ChefHat },
+        { name: "Cherry", Component: Cherry },
+        { name: "Compass", Component: Compass },
+        { name: "Church", Component: Church },
+        { name: "CigaretteOff", Component: CigaretteOff },
+        { name: "Cigarette", Component: Cigarette },
+        { name: "Citrus", Component: Citrus },
+        { name: "Clapperboard", Component: Clapperboard },
+        { name: "Clipboard", Component: Clipboard },
+        { name: "CloudRain", Component: CloudRain },
+        { name: "Clover", Component: Clover },
+        { name: "Code", Component: Code },
         { name: "Download", Component: Download },
         { name: "Upload", Component: Upload },
         { name: "User", Component: User },
