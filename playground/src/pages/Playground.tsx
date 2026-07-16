@@ -4,7 +4,7 @@ import {
     PlayCircle, ChevronDown, ChevronUp, ChevronLeft, ChevronRight,
     ChartBar, DotsVertical, RosetteDiscount,
     Target, LayoutSidebarRight, CurrencyRupee, FlowIcon, Sparkle
-, Download, Upload, User, Save, Info, Plus, Minus, Image, Video, Music, Calendar, Folder, File, MapPin, Map, Cloud, Sun, Zap, Share, Printer, Monitor, Activity, Anchor, Award, BaggageClaim, Balloon, Ban, Banknote, Baseline, Bath, Battery, Beaker, Bed, Bike, Biohazard, Bird, Bluetooth, Bone, Box, Briefcase, Bug, Building, Bus, Cable, Calculator, Car, Carrot, Cast, Cat, ChefHat, Cherry, Compass, Church, CigaretteOff, Cigarette, Citrus, Clapperboard, Clipboard, CloudRain, Clover, Code} from "@champ18ion/flowicons";
+, Download, Upload, User, Save, Info, Plus, Minus, Image, Video, Music, Calendar, Folder, File, MapPin, Map, Cloud, Sun, Zap, Share, Printer, Monitor, Activity, Anchor, Award, BaggageClaim, Balloon, Ban, Banknote, Baseline, Bath, Battery, Beaker, Bed, Bike, Biohazard, Bird, Bluetooth, Bone, Box, Briefcase, Bug, Building, Bus, Cable, Calculator, Car, Carrot, Cast, Cat, ChefHat, Cherry, Compass, Church, CigaretteOff, Cigarette, Citrus, Clapperboard, Clipboard, CloudRain, Clover, Code, BatteryCharging, BatteryFull, Cpu, CreditCard, Database, EyeOff, FileText, Gift, HardDrive, Headphones, Key, Laptop, Maximize, Mic, Minimize, Navigation, Paperclip, Pause, PenTool, Scissors, Server, Shield, ShoppingCart, SkipForward, Smartphone, Snowflake, StarHalf, StopCircle, Tablet, Tag, Terminal, ThumbsDown, ThumbsUp, Umbrella, Unlock, Wallet, Watch, Wind, ZoomIn, ZoomOut,  } from "@champ18ion/flowicons";
 import { useState, useMemo } from "react";
 import IconCard from "../components/IconCard";
 import { motion, AnimatePresence } from "framer-motion";
@@ -158,6 +158,46 @@ export default function Playground({ onBack }: PlaygroundProps) {
         { name: "X", Component: X },
         { name: "FlowIcon", Component: FlowIcon },
         { name: "Sparkle", Component: Sparkle },
+        { name: "BatteryCharging", Component: BatteryCharging },
+        { name: "BatteryFull", Component: BatteryFull },
+        { name: "Cpu", Component: Cpu },
+        { name: "CreditCard", Component: CreditCard },
+        { name: "Database", Component: Database },
+        { name: "EyeOff", Component: EyeOff },
+        { name: "FileText", Component: FileText },
+        { name: "Gift", Component: Gift },
+        { name: "HardDrive", Component: HardDrive },
+        { name: "Headphones", Component: Headphones },
+        { name: "Key", Component: Key },
+        { name: "Laptop", Component: Laptop },
+        { name: "Maximize", Component: Maximize },
+        { name: "Mic", Component: Mic },
+        { name: "Minimize", Component: Minimize },
+        { name: "Navigation", Component: Navigation },
+        { name: "Paperclip", Component: Paperclip },
+        { name: "Pause", Component: Pause },
+        { name: "PenTool", Component: PenTool },
+        { name: "Scissors", Component: Scissors },
+        { name: "Server", Component: Server },
+        { name: "Shield", Component: Shield },
+        { name: "ShoppingCart", Component: ShoppingCart },
+        { name: "SkipForward", Component: SkipForward },
+        { name: "Smartphone", Component: Smartphone },
+        { name: "Snowflake", Component: Snowflake },
+        { name: "StarHalf", Component: StarHalf },
+        { name: "StopCircle", Component: StopCircle },
+        { name: "Tablet", Component: Tablet },
+        { name: "Tag", Component: Tag },
+        { name: "Terminal", Component: Terminal },
+        { name: "ThumbsDown", Component: ThumbsDown },
+        { name: "ThumbsUp", Component: ThumbsUp },
+        { name: "Umbrella", Component: Umbrella },
+        { name: "Unlock", Component: Unlock },
+        { name: "Wallet", Component: Wallet },
+        { name: "Watch", Component: Watch },
+        { name: "Wind", Component: Wind },
+        { name: "ZoomIn", Component: ZoomIn },
+        { name: "ZoomOut", Component: ZoomOut },
     ].sort((a, b) => a.name.localeCompare(b.name)), []);
 
     const filteredIcons = icons.filter((icon) =>
