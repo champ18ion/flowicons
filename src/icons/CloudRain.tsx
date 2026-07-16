@@ -11,22 +11,32 @@ const CloudRain = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 
     // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".cloudrain-element", { y: [0, -2, 0] }, { duration: 1.5, repeat: Infinity, ease: "easeInOut" });
+      animate(".drop-1", { y: [0, 4, 0], opacity: [1, 0, 1] }, { duration: 0.8, repeat: Infinity, ease: "easeIn", delay: 0 });
+      animate(".drop-2", { y: [0, 4, 0], opacity: [1, 0, 1] }, { duration: 0.8, repeat: Infinity, ease: "easeIn", delay: 0.2 });
+      animate(".drop-3", { y: [0, 4, 0], opacity: [1, 0, 1] }, { duration: 0.8, repeat: Infinity, ease: "easeIn", delay: 0.4 });
     }, [animate]);
 
     // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-        animate(".cloudrain-element", { x: [-2, 2, -2] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
+      animate(".cloud", { x: [-2, 2, -2] }, { duration: 1.4, repeat: Infinity, ease: "easeInOut" });
+      animate(".drop-1", { y: [0, 2, 0], opacity: [1, 0.4, 1] }, { duration: 0.7, repeat: Infinity, ease: "easeInOut", delay: 0 });
+      animate(".drop-2", { y: [0, 2, 0], opacity: [1, 0.4, 1] }, { duration: 0.7, repeat: Infinity, ease: "easeInOut", delay: 0.15 });
+      animate(".drop-3", { y: [0, 2, 0], opacity: [1, 0.4, 1] }, { duration: 0.7, repeat: Infinity, ease: "easeInOut", delay: 0.3 });
     }, [animate]);
 
     // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".cloudrain-element", { y: [0, 5, 0], scale: [1, 1.1, 1] }, { duration: 0.5 });
+      animate(".cloud", { scaleY: [1, 0.9, 1] }, { duration: 0.25, ease: "easeOut" });
+      animate(".drop-1", { y: [0, 8], opacity: [1, 0] }, { duration: 0.4, ease: "easeIn", delay: 0 });
+      animate(".drop-2", { y: [0, 8], opacity: [1, 0] }, { duration: 0.4, ease: "easeIn", delay: 0.1 });
+      await animate(".drop-3", { y: [0, 8], opacity: [1, 0] }, { duration: 0.4, ease: "easeIn", delay: 0.2 });
+      animate(".drop-1, .drop-2, .drop-3", { y: 0, opacity: 1 }, { duration: 0.15 });
     }, [animate]);
 
     // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".cloudrain-element", { y: 0, x: 0, scale: 1 }, { duration: 0.2 });
+      animate(".cloud", { x: 0, scaleY: 1 }, { duration: 0.2 });
+      animate(".drop-1, .drop-2, .drop-3", { y: 0, opacity: 1 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,10 +68,10 @@ const CloudRain = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" className="cloudrain-element" />
-        <motion.path d="M16 14v6" className="cloudrain-element" />
-        <motion.path d="M8 14v6" className="cloudrain-element" />
-        <motion.path d="M12 16v6" className="cloudrain-element" />
+        <motion.path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" className="cloud" />
+        <motion.path d="M8 14v6" className="drop drop-1" />
+        <motion.path d="M12 16v6" className="drop drop-2" />
+        <motion.path d="M16 14v6" className="drop drop-3" />
       </motion.svg>
     );
   }

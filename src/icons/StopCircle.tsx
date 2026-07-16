@@ -11,22 +11,23 @@ const StopCircle = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 
     // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".icon-element", { scale: [1, 1.1, 1] }, { duration: 1.5, repeat: Infinity, ease: "linear" });
+      animate(".ring", { opacity: [1, 0.4, 1] }, { duration: 0.7, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
     // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-        animate(".icon-element", { scale: [1, 1.15, 1] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
+      animate(".square", { scale: [1, 1.15, 1] }, { duration: 0.8, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
     // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".icon-element", { scale: [1, 0.85, 1] }, { duration: 0.5, ease: "easeOut" });
+      animate(".ring", { scale: [1, 1.08, 1] }, { duration: 0.3, ease: "easeOut" });
+      await animate(".square", { scale: [1, 0.8, 1] }, { duration: 0.3, ease: "easeOut" });
     }, [animate]);
 
     // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".icon-element", { scale: 1, rotate: 0, pathLength: 1, pathOffset: 0, y: 0, opacity: 1 }, { duration: 0.2 });
+      animate(".ring, .square", { scale: 1, opacity: 1 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,7 +59,8 @@ const StopCircle = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.circle cx="12" cy="12" r="10" className="icon-element" /><motion.rect x="9" y="9" width="6" height="6" rx="1" className="icon-element" />
+        <motion.circle cx="12" cy="12" r="10" className="ring" />
+        <motion.rect x="9" y="9" width="6" height="6" rx="1" className="square" />
       </motion.svg>
     );
   }

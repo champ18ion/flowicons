@@ -11,22 +11,25 @@ const Cpu = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 
     // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".icon-element", { pathLength: [0, 1] }, { duration: 1.5, repeat: Infinity, ease: "linear" });
+      animate(".die", { opacity: [0.4, 1, 0.4] }, { duration: 0.8, repeat: Infinity, ease: "easeInOut" });
+      animate(".pin", { opacity: [1, 0.3, 1] }, { duration: 0.8, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
     // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-        animate(".icon-element", { rotate: [0, 5, -5, 0] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
+      animate(".die", { scale: [1, 1.15, 1] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
     // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".icon-element", { rotate: [0, -10, 10, 0] }, { duration: 0.5, ease: "easeOut" });
+      animate(".pin", { opacity: [1, 0.2, 1] }, { duration: 0.4, ease: "easeOut" });
+      await animate(".die", { scale: [1, 1.3, 1] }, { duration: 0.4, ease: "easeOut" });
     }, [animate]);
 
     // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".icon-element", { scale: 1, rotate: 0, pathLength: 1, pathOffset: 0, y: 0, opacity: 1 }, { duration: 0.2 });
+      animate(".die", { scale: 1, opacity: 1 }, { duration: 0.2 });
+      animate(".pin", { opacity: 1 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,7 +61,20 @@ const Cpu = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.path d="M12 20v2" className="icon-element" /><motion.path d="M12 2v2" className="icon-element" /><motion.path d="M17 20v2" className="icon-element" /><motion.path d="M17 2v2" className="icon-element" /><motion.path d="M2 12h2" className="icon-element" /><motion.path d="M2 17h2" className="icon-element" /><motion.path d="M2 7h2" className="icon-element" /><motion.path d="M20 12h2" className="icon-element" /><motion.path d="M20 17h2" className="icon-element" /><motion.path d="M20 7h2" className="icon-element" /><motion.path d="M7 20v2" className="icon-element" /><motion.path d="M7 2v2" className="icon-element" /><motion.rect x="4" y="4" width="16" height="16" rx="2" className="icon-element" /><motion.rect x="8" y="8" width="8" height="8" rx="1" className="icon-element" />
+        <motion.path d="M12 20v2" className="pin" />
+        <motion.path d="M12 2v2" className="pin" />
+        <motion.path d="M17 20v2" className="pin" />
+        <motion.path d="M17 2v2" className="pin" />
+        <motion.path d="M2 12h2" className="pin" />
+        <motion.path d="M2 17h2" className="pin" />
+        <motion.path d="M2 7h2" className="pin" />
+        <motion.path d="M20 12h2" className="pin" />
+        <motion.path d="M20 17h2" className="pin" />
+        <motion.path d="M20 7h2" className="pin" />
+        <motion.path d="M7 20v2" className="pin" />
+        <motion.path d="M7 2v2" className="pin" />
+        <motion.rect x="4" y="4" width="16" height="16" rx="2" className="chip" />
+        <motion.rect x="8" y="8" width="8" height="8" rx="1" className="die" />
       </motion.svg>
     );
   }

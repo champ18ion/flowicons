@@ -11,22 +11,24 @@ const PenTool = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 
     // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".icon-element", { opacity: [1, 0.5, 1] }, { duration: 1.5, repeat: Infinity, ease: "linear" });
+      animate(".nib", { opacity: [1, 0.3, 1] }, { duration: 0.6, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
     // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-        animate(".icon-element", { scale: [1, 1.1, 1] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
+      animate(".nib", { scale: [1, 1.3, 1] }, { duration: 0.9, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
     // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".icon-element", { scale: [1, 0.9, 1] }, { duration: 0.5, ease: "easeOut" });
+      animate(".stroke-path", { pathLength: [0, 1] }, { duration: 0.4, ease: "easeOut" });
+      await animate(".nib", { scale: [1, 1.4, 1] }, { duration: 0.4, ease: "easeOut" });
     }, [animate]);
 
     // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".icon-element", { scale: 1, rotate: 0, pathLength: 1, pathOffset: 0, y: 0, opacity: 1 }, { duration: 0.2 });
+      animate(".nib", { scale: 1, opacity: 1 }, { duration: 0.2 });
+      animate(".stroke-path", { pathLength: 1 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,7 +60,10 @@ const PenTool = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.path d="M15.707 21.293a1 1 0 0 1-1.414 0l-1.586-1.586a1 1 0 0 1 0-1.414l5.586-5.586a1 1 0 0 1 1.414 0l1.586 1.586a1 1 0 0 1 0 1.414z" className="icon-element" /><motion.path d="m18 13-1.375-6.874a1 1 0 0 0-.746-.776L3.235 2.028a1 1 0 0 0-1.207 1.207L5.35 15.879a1 1 0 0 0 .776.746L13 18" className="icon-element" /><motion.path d="m2.3 2.3 7.286 7.286" className="icon-element" /><motion.circle cx="11" cy="11" r="2" className="icon-element" />
+        <motion.path d="M15.707 21.293a1 1 0 0 1-1.414 0l-1.586-1.586a1 1 0 0 1 0-1.414l5.586-5.586a1 1 0 0 1 1.414 0l1.586 1.586a1 1 0 0 1 0 1.414z" className="tip" />
+        <motion.path d="m18 13-1.375-6.874a1 1 0 0 0-.746-.776L3.235 2.028a1 1 0 0 0-1.207 1.207L5.35 15.879a1 1 0 0 0 .776.746L13 18" className="stroke-path" />
+        <motion.path d="m2.3 2.3 7.286 7.286" className="stroke-path" />
+        <motion.circle cx="11" cy="11" r="2" className="nib" />
       </motion.svg>
     );
   }

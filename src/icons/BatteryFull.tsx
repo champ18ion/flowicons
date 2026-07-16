@@ -11,22 +11,28 @@ const BatteryFull = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 
     // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".icon-element", { pathOffset: [0, 1] }, { duration: 1.5, repeat: Infinity, ease: "linear" });
+      animate(".bar-1", { opacity: [0.3, 1, 0.3] }, { duration: 0.9, repeat: Infinity, ease: "easeInOut", delay: 0 });
+      animate(".bar-2", { opacity: [0.3, 1, 0.3] }, { duration: 0.9, repeat: Infinity, ease: "easeInOut", delay: 0.15 });
+      animate(".bar-3", { opacity: [0.3, 1, 0.3] }, { duration: 0.9, repeat: Infinity, ease: "easeInOut", delay: 0.3 });
     }, [animate]);
 
     // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-        animate(".icon-element", { y: [0, -2, 0] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
+      animate(".bar-1", { scaleY: [1, 0.6, 1] }, { duration: 0.8, repeat: Infinity, ease: "easeInOut", delay: 0 });
+      animate(".bar-2", { scaleY: [1, 0.6, 1] }, { duration: 0.8, repeat: Infinity, ease: "easeInOut", delay: 0.1 });
+      animate(".bar-3", { scaleY: [1, 0.6, 1] }, { duration: 0.8, repeat: Infinity, ease: "easeInOut", delay: 0.2 });
     }, [animate]);
 
     // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".icon-element", { scale: [1, 0.9, 1] }, { duration: 0.5, ease: "easeOut" });
+      animate(".bar-1", { scaleY: [0.2, 1] }, { duration: 0.2, ease: "easeOut" });
+      animate(".bar-2", { scaleY: [0.2, 1] }, { duration: 0.2, ease: "easeOut", delay: 0.1 });
+      await animate(".bar-3", { scaleY: [0.2, 1] }, { duration: 0.2, ease: "easeOut", delay: 0.2 });
     }, [animate]);
 
     // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".icon-element", { scale: 1, rotate: 0, pathLength: 1, pathOffset: 0, y: 0, opacity: 1 }, { duration: 0.2 });
+      animate(".bar-1, .bar-2, .bar-3", { scaleY: 1, opacity: 1 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,7 +64,11 @@ const BatteryFull = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.path d="M10 10v4" className="icon-element" /><motion.path d="M14 10v4" className="icon-element" /><motion.path d="M22 14v-4" className="icon-element" /><motion.path d="M6 10v4" className="icon-element" /><motion.rect x="2" y="6" width="16" height="12" rx="2" className="icon-element" />
+        <motion.path d="M6 10v4" className="bar bar-1" />
+        <motion.path d="M10 10v4" className="bar bar-2" />
+        <motion.path d="M14 10v4" className="bar bar-3" />
+        <motion.path d="M22 14v-4" className="tip" />
+        <motion.rect x="2" y="6" width="16" height="12" rx="2" className="cell" />
       </motion.svg>
     );
   }

@@ -11,22 +11,23 @@ const ThumbsUp = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 
     // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".icon-element", { opacity: [1, 0.5, 1] }, { duration: 1.5, repeat: Infinity, ease: "linear" });
+      animate(".thumb", { rotate: [0, 6, -6, 0] }, { duration: 0.6, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
     // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-        animate(".icon-element", { scale: [1, 1.1, 1] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
+      animate(".thumb", { rotate: [0, 6, -6, 0] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
     // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".icon-element", { scale: [1, 0.9, 1] }, { duration: 0.5, ease: "easeOut" });
+      await animate(".hand", { rotate: [0, 12, 0], y: [0, -3, 0] }, { duration: 0.45, ease: "easeOut" });
     }, [animate]);
 
     // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".icon-element", { scale: 1, rotate: 0, pathLength: 1, pathOffset: 0, y: 0, opacity: 1 }, { duration: 0.2 });
+      animate(".hand", { rotate: 0, y: 0 }, { duration: 0.2 });
+      animate(".thumb", { rotate: 0 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,7 +59,8 @@ const ThumbsUp = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z" className="icon-element" /><motion.path d="M7 10v12" className="icon-element" />
+        <motion.path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z" className="hand" />
+        <motion.path d="M7 10v12" className="thumb" />
       </motion.svg>
     );
   }

@@ -11,22 +11,27 @@ const HardDrive = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 
     // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".icon-element", { pathOffset: [0, 1] }, { duration: 1.5, repeat: Infinity, ease: "linear" });
+      animate(".led-left", { opacity: [1, 0.2, 1] }, { duration: 0.5, repeat: Infinity, ease: "easeInOut", delay: 0 });
+      animate(".led-right", { opacity: [1, 0.2, 1] }, { duration: 0.5, repeat: Infinity, ease: "easeInOut", delay: 0.25 });
     }, [animate]);
 
     // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-        animate(".icon-element", { y: [0, -2, 0] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
+      animate(".led-left", { opacity: [1, 0.3, 1] }, { duration: 0.7, repeat: Infinity, ease: "easeInOut", delay: 0 });
+      animate(".led-right", { opacity: [1, 0.3, 1] }, { duration: 0.7, repeat: Infinity, ease: "easeInOut", delay: 0.35 });
     }, [animate]);
 
     // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".icon-element", { scale: [1, 0.9, 1] }, { duration: 0.5, ease: "easeOut" });
+      animate(".body", { y: [0, -1, 0] }, { duration: 0.3, ease: "easeOut" });
+      animate(".led-left", { opacity: [1, 0.1, 1] }, { duration: 0.2, ease: "easeOut" });
+      await animate(".led-right", { opacity: [1, 0.1, 1] }, { duration: 0.2, ease: "easeOut", delay: 0.1 });
     }, [animate]);
 
     // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".icon-element", { scale: 1, rotate: 0, pathLength: 1, pathOffset: 0, y: 0, opacity: 1 }, { duration: 0.2 });
+      animate(".led-left, .led-right", { opacity: 1 }, { duration: 0.2 });
+      animate(".body", { y: 0 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,7 +63,10 @@ const HardDrive = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.path d="M10 16h.01" className="icon-element" /><motion.path d="M2.212 11.577a2 2 0 0 0-.212.896V18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5.527a2 2 0 0 0-.212-.896L18.55 5.11A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" className="icon-element" /><motion.path d="M21.946 12.013H2.054" className="icon-element" /><motion.path d="M6 16h.01" className="icon-element" />
+        <motion.path d="M10 16h.01" className="led led-right" />
+        <motion.path d="M2.212 11.577a2 2 0 0 0-.212.896V18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5.527a2 2 0 0 0-.212-.896L18.55 5.11A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" className="body" />
+        <motion.path d="M21.946 12.013H2.054" className="body" />
+        <motion.path d="M6 16h.01" className="led led-left" />
       </motion.svg>
     );
   }

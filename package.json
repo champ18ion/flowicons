@@ -1,6 +1,6 @@
 {
   "name": "@champ18ion/flowicons",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Lightweight animated React icon library",
   "type": "module",
   "main": "./dist/index.cjs",

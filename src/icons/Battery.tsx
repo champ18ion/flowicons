@@ -11,22 +11,26 @@ const Battery = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 
     // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".battery-element", { opacity: [0.3, 1, 0.3] }, { duration: 1.5, repeat: Infinity, ease: "easeInOut" });
+      animate(".charge", { scaleX: [0, 1, 0] }, { duration: 1.6, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
     // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-        animate(".battery-element", { scale: [1, 1.05, 1] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
+      animate(".charge", { scaleX: [0.15, 0.4, 0.15] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
     // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".battery-element", { x: [0, 5, 0], scale: [1, 1.1, 1] }, { duration: 0.5 });
+      animate(".tip", { opacity: [1, 0.3, 1] }, { duration: 0.5, ease: "easeOut" });
+      await animate(".charge", { scaleX: [0, 1] }, { duration: 0.5, ease: "easeOut" });
+      animate(".charge", { scaleX: 0 }, { duration: 0.4, ease: "easeIn", delay: 0.2 });
     }, [animate]);
 
     // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".battery-element", { opacity: 1, scale: 1, x: 0 }, { duration: 0.2 });
+      animate(".charge", { scaleX: 0 }, { duration: 0.2 });
+      animate(".tip", { opacity: 1 }, { duration: 0.2 });
+      animate(".cell", { scale: 1 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,8 +62,20 @@ const Battery = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.path d="M 22 14 L 22 10" className="battery-element" />
-        <motion.rect x="2" y="6" width="16" height="12" rx="2" className="battery-element" />
+        <motion.path d="M 22 14 L 22 10" className="tip" />
+        <motion.rect x="2" y="6" width="16" height="12" rx="2" className="cell" />
+        <motion.rect
+          x="4"
+          y="8"
+          width="12"
+          height="8"
+          rx="1"
+          className="charge"
+          fill={color}
+          stroke="none"
+          initial={{ scaleX: 0 }}
+          style={{ transformOrigin: "4px 12px" }}
+        />
       </motion.svg>
     );
   }

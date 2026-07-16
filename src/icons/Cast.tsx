@@ -11,22 +11,30 @@ const Cast = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 
     // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".cast-element", { opacity: [0.3, 1, 0.3] }, { duration: 1.5, repeat: Infinity, ease: "easeInOut" });
+      animate(".wave-1", { opacity: [1, 0.2, 1] }, { duration: 0.9, repeat: Infinity, ease: "easeInOut", delay: 0 });
+      animate(".wave-2", { opacity: [1, 0.2, 1] }, { duration: 0.9, repeat: Infinity, ease: "easeInOut", delay: 0.2 });
+      animate(".dot", { opacity: [1, 0.2, 1] }, { duration: 0.9, repeat: Infinity, ease: "easeInOut", delay: 0.4 });
     }, [animate]);
 
     // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-        animate(".cast-element", { scale: [1, 1.05, 1] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
+      animate(".wave-1", { opacity: [0.5, 1, 0.5] }, { duration: 1.2, repeat: Infinity, ease: "easeInOut", delay: 0 });
+      animate(".wave-2", { opacity: [0.5, 1, 0.5] }, { duration: 1.2, repeat: Infinity, ease: "easeInOut", delay: 0.25 });
     }, [animate]);
 
     // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".cast-element", { scale: [1, 1.2, 1], opacity: [1, 0.5, 1] }, { duration: 0.5 });
+      animate(".screen", { scaleY: [1, 0.94, 1] }, { duration: 0.2, ease: "easeOut" });
+      animate(".dot", { scale: [1, 1.6, 1] }, { duration: 0.25, ease: "easeOut" });
+      animate(".wave-2", { pathLength: [0, 1], opacity: [0, 1] }, { duration: 0.3, ease: "easeOut", delay: 0.05 });
+      await animate(".wave-1", { pathLength: [0, 1], opacity: [0, 1] }, { duration: 0.3, ease: "easeOut", delay: 0.2 });
     }, [animate]);
 
     // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".cast-element", { opacity: 1, scale: 1 }, { duration: 0.2 });
+      animate(".wave-1, .wave-2", { opacity: 1, pathLength: 1 }, { duration: 0.2 });
+      animate(".dot", { scale: 1, opacity: 1 }, { duration: 0.2 });
+      animate(".screen", { scaleY: 1 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,10 +66,10 @@ const Cast = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.path d="M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6" className="cast-element" />
-        <motion.path d="M2 12a9 9 0 0 1 8 8" className="cast-element" />
-        <motion.path d="M2 16a5 5 0 0 1 4 4" className="cast-element" />
-        <motion.line x1="2" x2="2.01" y1="20" y2="20" className="cast-element" />
+        <motion.path d="M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6" className="screen" />
+        <motion.path d="M2 12a9 9 0 0 1 8 8" className="wave wave-1" />
+        <motion.path d="M2 16a5 5 0 0 1 4 4" className="wave wave-2" />
+        <motion.line x1="2" x2="2.01" y1="20" y2="20" className="dot" />
       </motion.svg>
     );
   }

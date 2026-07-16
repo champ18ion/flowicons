@@ -11,22 +11,25 @@ const Gift = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 
     // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".icon-element", { pathOffset: [0, 1] }, { duration: 1.5, repeat: Infinity, ease: "linear" });
+      animate(".bow", { rotate: [0, -6, 6, 0] }, { duration: 0.8, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
     // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-        animate(".icon-element", { y: [0, -3, 0], rotate: [0, -2, 0] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
+      animate(".bow", { rotate: [0, -8, 8, 0] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
     // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".icon-element", { scale: [1, 0.9, 1] }, { duration: 0.5, ease: "easeOut" });
+      await animate(".lid", { y: [0, -4, 0] }, { duration: 0.3, ease: "easeOut" });
+      animate(".box", { scale: [1, 1.06, 1] }, { duration: 0.3, ease: "easeOut" });
     }, [animate]);
 
     // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".icon-element", { scale: 1, rotate: 0, pathLength: 1, pathOffset: 0, y: 0, opacity: 1 }, { duration: 0.2 });
+      animate(".bow", { rotate: 0 }, { duration: 0.2 });
+      animate(".lid", { y: 0 }, { duration: 0.2 });
+      animate(".box", { scale: 1 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,7 +61,10 @@ const Gift = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.path d="M12 7v14" className="icon-element" /><motion.path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" className="icon-element" /><motion.path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" className="icon-element" /><motion.rect x="3" y="7" width="18" height="4" rx="1" className="icon-element" />
+        <motion.path d="M12 7v14" className="ribbon" />
+        <motion.path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" className="box" />
+        <motion.path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" className="bow" />
+        <motion.rect x="3" y="7" width="18" height="4" rx="1" className="lid" />
       </motion.svg>
     );
   }

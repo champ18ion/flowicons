@@ -11,22 +11,24 @@ const ZoomOut = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 
     // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".icon-element", { pathOffset: [0, 1] }, { duration: 1.5, repeat: Infinity, ease: "linear" });
+      animate(".lens", { opacity: [1, 0.5, 1] }, { duration: 0.7, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
     // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-        animate(".icon-element", { scale: [1, 1.2, 1] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
+      animate(".lens", { scale: [1, 1.1, 1] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
     // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".icon-element", { scale: [1, 0.8, 1] }, { duration: 0.5, ease: "easeOut" });
+      animate(".minus", { scaleX: [1, 1.5, 1], opacity: [1, 0.5, 1] }, { duration: 0.35, ease: "easeOut" });
+      await animate(".lens", { scale: [1, 0.88, 1] }, { duration: 0.35, ease: "easeOut" });
     }, [animate]);
 
     // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".icon-element", { scale: 1, rotate: 0, pathLength: 1, pathOffset: 0, y: 0, opacity: 1 }, { duration: 0.2 });
+      animate(".lens", { scale: 1, opacity: 1 }, { duration: 0.2 });
+      animate(".minus", { scaleX: 1, opacity: 1 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,7 +60,9 @@ const ZoomOut = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.circle cx="11" cy="11" r="8" className="icon-element" /><motion.line x1="21" x2="16.65" y1="21" y2="16.65" className="icon-element" /><motion.line x1="8" x2="14" y1="11" y2="11" className="icon-element" />
+        <motion.circle cx="11" cy="11" r="8" className="lens" />
+        <motion.line x1="21" x2="16.65" y1="21" y2="16.65" className="handle" />
+        <motion.line x1="8" x2="14" y1="11" y2="11" className="minus" />
       </motion.svg>
     );
   }

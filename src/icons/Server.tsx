@@ -11,22 +11,26 @@ const Server = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 
     // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".icon-element", { pathOffset: [0, 1] }, { duration: 1.5, repeat: Infinity, ease: "linear" });
+      animate(".led-top", { opacity: [1, 0.2, 1] }, { duration: 0.5, repeat: Infinity, ease: "easeInOut", delay: 0 });
+      animate(".led-bottom", { opacity: [1, 0.2, 1] }, { duration: 0.5, repeat: Infinity, ease: "easeInOut", delay: 0.25 });
     }, [animate]);
 
     // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-        animate(".icon-element", { y: [0, -2, 0] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
+      animate(".led-top", { opacity: [1, 0.3, 1] }, { duration: 0.7, repeat: Infinity, ease: "easeInOut", delay: 0 });
+      animate(".led-bottom", { opacity: [1, 0.3, 1] }, { duration: 0.7, repeat: Infinity, ease: "easeInOut", delay: 0.35 });
     }, [animate]);
 
     // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".icon-element", { scale: [1, 0.9, 1] }, { duration: 0.5, ease: "easeOut" });
+      animate(".unit-top", { scale: [1, 1.06, 1] }, { duration: 0.25, ease: "easeOut" });
+      await animate(".unit-bottom", { scale: [1, 1.06, 1] }, { duration: 0.25, ease: "easeOut", delay: 0.12 });
     }, [animate]);
 
     // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".icon-element", { scale: 1, rotate: 0, pathLength: 1, pathOffset: 0, y: 0, opacity: 1 }, { duration: 0.2 });
+      animate(".led-top, .led-bottom", { opacity: 1 }, { duration: 0.2 });
+      animate(".unit-top, .unit-bottom", { scale: 1 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,7 +62,10 @@ const Server = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.rect width="20" height="8" x="2" y="2" rx="2" ry="2" className="icon-element" /><motion.rect width="20" height="8" x="2" y="14" rx="2" ry="2" className="icon-element" /><motion.line x1="6" x2="6.01" y1="6" y2="6" className="icon-element" /><motion.line x1="6" x2="6.01" y1="18" y2="18" className="icon-element" />
+        <motion.rect width="20" height="8" x="2" y="2" rx="2" ry="2" className="unit unit-top" />
+        <motion.rect width="20" height="8" x="2" y="14" rx="2" ry="2" className="unit unit-bottom" />
+        <motion.line x1="6" x2="6.01" y1="6" y2="6" className="led led-top" />
+        <motion.line x1="6" x2="6.01" y1="18" y2="18" className="led led-bottom" />
       </motion.svg>
     );
   }

@@ -11,22 +11,25 @@ const Scissors = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 
     // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".icon-element", { opacity: [1, 0.5, 1] }, { duration: 1.5, repeat: Infinity, ease: "linear" });
+      animate(".blade-a", { rotate: [0, -10, 0] }, { duration: 0.5, repeat: Infinity, ease: "easeInOut" });
+      animate(".blade-b", { rotate: [0, 10, 0] }, { duration: 0.5, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
     // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-        animate(".icon-element", { scale: [1, 1.1, 1] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
+      animate(".handle-top, .handle-bottom", { scale: [1, 1.15, 1] }, { duration: 0.8, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
     // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".icon-element", { scale: [1, 0.9, 1] }, { duration: 0.5, ease: "easeOut" });
+      animate(".blade-a", { rotate: [0, -14, 0] }, { duration: 0.4, ease: "easeInOut" });
+      await animate(".blade-b", { rotate: [0, 14, 0] }, { duration: 0.4, ease: "easeInOut" });
     }, [animate]);
 
     // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".icon-element", { scale: 1, rotate: 0, pathLength: 1, pathOffset: 0, y: 0, opacity: 1 }, { duration: 0.2 });
+      animate(".handle-top, .handle-bottom", { scale: 1 }, { duration: 0.2 });
+      animate(".blade-a, .blade-b", { rotate: 0 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,7 +61,11 @@ const Scissors = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.circle cx="6" cy="6" r="3" className="icon-element" /><motion.path d="M8.12 8.12 12 12" className="icon-element" /><motion.path d="M20 4 8.12 15.88" className="icon-element" /><motion.circle cx="6" cy="18" r="3" className="icon-element" /><motion.path d="M14.8 14.8 20 20" className="icon-element" />
+        <motion.circle cx="6" cy="6" r="3" className="handle handle-top" />
+        <motion.path d="M8.12 8.12 12 12" className="blade blade-a" />
+        <motion.path d="M20 4 8.12 15.88" className="blade blade-a" />
+        <motion.circle cx="6" cy="18" r="3" className="handle handle-bottom" />
+        <motion.path d="M14.8 14.8 20 20" className="blade blade-b" />
       </motion.svg>
     );
   }

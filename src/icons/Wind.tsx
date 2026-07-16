@@ -11,22 +11,28 @@ const Wind = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 
     // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".icon-element", { rotate: [0, 360] }, { duration: 1.5, repeat: Infinity, ease: "linear" });
+      animate(".gust-1", { x: [0, 3, 0] }, { duration: 0.5, repeat: Infinity, ease: "easeInOut", delay: 0 });
+      animate(".gust-2", { x: [0, 3, 0] }, { duration: 0.5, repeat: Infinity, ease: "easeInOut", delay: 0.1 });
+      animate(".gust-3", { x: [0, 3, 0] }, { duration: 0.5, repeat: Infinity, ease: "easeInOut", delay: 0.2 });
     }, [animate]);
 
     // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-        animate(".icon-element", { rotate: [0, 15, -15, 0] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
+      animate(".gust-1", { x: [0, 2, 0] }, { duration: 0.8, repeat: Infinity, ease: "easeInOut", delay: 0 });
+      animate(".gust-2", { x: [0, 2, 0] }, { duration: 0.8, repeat: Infinity, ease: "easeInOut", delay: 0.15 });
+      animate(".gust-3", { x: [0, 2, 0] }, { duration: 0.8, repeat: Infinity, ease: "easeInOut", delay: 0.3 });
     }, [animate]);
 
     // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".icon-element", { scale: [1, 0.9, 1] }, { duration: 0.5, ease: "easeOut" });
+      animate(".gust-1", { x: [0, 6, 0], opacity: [1, 0.4, 1] }, { duration: 0.35, ease: "easeOut", delay: 0 });
+      animate(".gust-2", { x: [0, 6, 0], opacity: [1, 0.4, 1] }, { duration: 0.35, ease: "easeOut", delay: 0.08 });
+      await animate(".gust-3", { x: [0, 6, 0], opacity: [1, 0.4, 1] }, { duration: 0.35, ease: "easeOut", delay: 0.16 });
     }, [animate]);
 
     // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".icon-element", { scale: 1, rotate: 0, pathLength: 1, pathOffset: 0, y: 0, opacity: 1 }, { duration: 0.2 });
+      animate(".gust-1, .gust-2, .gust-3", { x: 0, opacity: 1 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,7 +64,9 @@ const Wind = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.path d="M12.8 19.6A2 2 0 1 0 14 16H2" className="icon-element" /><motion.path d="M17.5 8a2.5 2.5 0 1 1 2 4H2" className="icon-element" /><motion.path d="M9.8 4.4A2 2 0 1 1 11 8H2" className="icon-element" />
+        <motion.path d="M9.8 4.4A2 2 0 1 1 11 8H2" className="gust gust-1" />
+        <motion.path d="M17.5 8a2.5 2.5 0 1 1 2 4H2" className="gust gust-2" />
+        <motion.path d="M12.8 19.6A2 2 0 1 0 14 16H2" className="gust gust-3" />
       </motion.svg>
     );
   }

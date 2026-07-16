@@ -11,22 +11,25 @@ const Pause = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 
     // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".icon-element", { scale: [1, 1.1, 1] }, { duration: 1.5, repeat: Infinity, ease: "linear" });
+      animate(".bar-left", { scaleY: [1, 0.7, 1] }, { duration: 0.6, repeat: Infinity, ease: "easeInOut", delay: 0 });
+      animate(".bar-right", { scaleY: [1, 0.7, 1] }, { duration: 0.6, repeat: Infinity, ease: "easeInOut", delay: 0.15 });
     }, [animate]);
 
     // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-        animate(".icon-element", { scale: [1, 1.15, 1] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
+      animate(".bar-left", { scaleY: [1, 0.85, 1] }, { duration: 0.9, repeat: Infinity, ease: "easeInOut", delay: 0 });
+      animate(".bar-right", { scaleY: [1, 0.85, 1] }, { duration: 0.9, repeat: Infinity, ease: "easeInOut", delay: 0.2 });
     }, [animate]);
 
     // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".icon-element", { scale: [1, 0.85, 1] }, { duration: 0.5, ease: "easeOut" });
+      animate(".bar-left", { x: [0, 2, 0], scaleY: [1, 0.85, 1] }, { duration: 0.3, ease: "easeOut" });
+      await animate(".bar-right", { x: [0, -2, 0], scaleY: [1, 0.85, 1] }, { duration: 0.3, ease: "easeOut" });
     }, [animate]);
 
     // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".icon-element", { scale: 1, rotate: 0, pathLength: 1, pathOffset: 0, y: 0, opacity: 1 }, { duration: 0.2 });
+      animate(".bar-left, .bar-right", { x: 0, scaleY: 1 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,7 +61,8 @@ const Pause = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.rect x="14" y="3" width="5" height="18" rx="1" className="icon-element" /><motion.rect x="5" y="3" width="5" height="18" rx="1" className="icon-element" />
+        <motion.rect x="5" y="3" width="5" height="18" rx="1" className="bar bar-left" />
+        <motion.rect x="14" y="3" width="5" height="18" rx="1" className="bar bar-right" />
       </motion.svg>
     );
   }

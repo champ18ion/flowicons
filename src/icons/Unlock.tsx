@@ -11,22 +11,23 @@ const Unlock = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 
     // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".icon-element", { pathLength: [0, 1] }, { duration: 1.5, repeat: Infinity, ease: "linear" });
+      animate(".shackle", { rotate: [0, -8, 8, 0] }, { duration: 0.6, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
     // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-        animate(".icon-element", { rotate: [0, 5, -5, 0] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
+      animate(".shackle", { rotate: [0, -8, 0] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
     // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".icon-element", { rotate: [0, -10, 10, 0] }, { duration: 0.5, ease: "easeOut" });
+      await animate(".shackle", { rotate: [0, -25, -25] }, { duration: 0.4, ease: "easeOut" });
     }, [animate]);
 
     // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".icon-element", { scale: 1, rotate: 0, pathLength: 1, pathOffset: 0, y: 0, opacity: 1 }, { duration: 0.2 });
+      animate(".shackle", { rotate: 0 }, { duration: 0.3 });
+      animate(".body", { scale: 1 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,7 +59,8 @@ const Unlock = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.rect width="18" height="11" x="3" y="11" rx="2" ry="2" className="icon-element" /><motion.path d="M7 11V7a5 5 0 0 1 9.9-1" className="icon-element" />
+        <motion.rect width="18" height="11" x="3" y="11" rx="2" ry="2" className="body" />
+        <motion.path d="M7 11V7a5 5 0 0 1 9.9-1" className="shackle" />
       </motion.svg>
     );
   }

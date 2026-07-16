@@ -11,22 +11,24 @@ const ShoppingCart = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 
     // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".icon-element", { pathOffset: [0, 1] }, { duration: 1.5, repeat: Infinity, ease: "linear" });
+      animate(".wheel", { rotate: [0, 360] }, { duration: 0.8, repeat: Infinity, ease: "linear" });
     }, [animate]);
 
     // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-        animate(".icon-element", { y: [0, -3, 0], rotate: [0, -2, 0] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
+      animate(".wheel", { rotate: [0, 360] }, { duration: 1.2, repeat: Infinity, ease: "linear" });
     }, [animate]);
 
     // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".icon-element", { scale: [1, 0.9, 1] }, { duration: 0.5, ease: "easeOut" });
+      animate(".body", { y: [0, -2, 0] }, { duration: 0.4, ease: "easeOut" });
+      await animate(".wheel", { rotate: [0, 360] }, { duration: 0.4, ease: "easeOut" });
     }, [animate]);
 
     // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".icon-element", { scale: 1, rotate: 0, pathLength: 1, pathOffset: 0, y: 0, opacity: 1 }, { duration: 0.2 });
+      animate(".wheel", { rotate: 0 }, { duration: 0.2 });
+      animate(".body", { y: 0 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,7 +60,9 @@ const ShoppingCart = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.circle cx="8" cy="21" r="1" className="icon-element" /><motion.circle cx="19" cy="21" r="1" className="icon-element" /><motion.path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" className="icon-element" />
+        <motion.circle cx="8" cy="21" r="1" className="wheel" />
+        <motion.circle cx="19" cy="21" r="1" className="wheel" />
+        <motion.path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" className="body" />
       </motion.svg>
     );
   }

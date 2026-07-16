@@ -11,22 +11,24 @@ const Umbrella = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 
     // 1. Loading Animation (Looping)
     const loadingAnim = useCallback(() => {
-      animate(".icon-element", { rotate: [0, 360] }, { duration: 1.5, repeat: Infinity, ease: "linear" });
+      animate(".canopy", { rotate: [0, -8, 8, 0] }, { duration: 0.7, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
     // 2. Hover Animation (Looping / Continuous)
     const hoverAnim = useCallback(() => {
-        animate(".icon-element", { rotate: [0, 15, -15, 0] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
+      animate(".canopy", { rotate: [0, -6, 6, 0] }, { duration: 1, repeat: Infinity, ease: "easeInOut" });
     }, [animate]);
 
     // 3. Click/Action Animation (One-Shot, Punchy)
     const clickAnim = useCallback(async () => {
-      await animate(".icon-element", { scale: [1, 0.9, 1] }, { duration: 0.5, ease: "easeOut" });
+      await animate(".canopy", { scaleY: [0.6, 1.05, 1] }, { duration: 0.4, ease: "easeOut" });
+      animate(".drip", { opacity: [0, 1] }, { duration: 0.4, ease: "easeOut" });
     }, [animate]);
 
     // 4. Stop/Reset
     const stop = useCallback(() => {
-      animate(".icon-element", { scale: 1, rotate: 0, pathLength: 1, pathOffset: 0, y: 0, opacity: 1 }, { duration: 0.2 });
+      animate(".canopy", { rotate: 0, scaleY: 1 }, { duration: 0.2 });
+      animate(".drip", { opacity: 1 }, { duration: 0.2 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
@@ -58,7 +60,9 @@ const Umbrella = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{ overflow: "visible" }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.path d="M12 13v7a2 2 0 0 0 4 0" className="icon-element" /><motion.path d="M12 2v2" className="icon-element" /><motion.path d="M20.992 13a1 1 0 0 0 .97-1.274 10.284 10.284 0 0 0-19.923 0A1 1 0 0 0 3 13z" className="icon-element" />
+        <motion.path d="M12 13v7a2 2 0 0 0 4 0" className="drip" />
+        <motion.path d="M12 2v2" className="tip" />
+        <motion.path d="M20.992 13a1 1 0 0 0 .97-1.274 10.284 10.284 0 0 0-19.923 0A1 1 0 0 0 3 13z" className="canopy" />
       </motion.svg>
     );
   }
