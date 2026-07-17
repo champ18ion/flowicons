@@ -4,7 +4,7 @@ import {
     PlayCircle, ChevronDown, ChevronUp, ChevronLeft, ChevronRight,
     ChartBar, DotsVertical, RosetteDiscount,
     Target, LayoutSidebarRight, CurrencyRupee, FlowIcon, Sparkle
-, Download, Upload, User, Save, Info, Plus, Minus, Image, Video, Music, Calendar, Folder, File, MapPin, Map, Cloud, Sun, Zap, Share, Printer, Monitor, Activity, Anchor, Award, BaggageClaim, Balloon, Ban, Banknote, Baseline, Bath, Battery, Beaker, Bed, Bike, Biohazard, Bird, Bluetooth, Bone, Box, Briefcase, Bug, Building, Bus, Cable, Calculator, Car, Carrot, Cast, Cat, ChefHat, Cherry, Compass, Church, CigaretteOff, Cigarette, Citrus, Clapperboard, Clipboard, CloudRain, Clover, Code, BatteryCharging, BatteryFull, Cpu, CreditCard, Database, EyeOff, FileText, Gift, HardDrive, Headphones, Key, Laptop, Maximize, Mic, Minimize, Navigation, Paperclip, Pause, PenTool, Scissors, Server, Shield, ShoppingCart, SkipForward, Smartphone, Snowflake, StarHalf, StopCircle, Tablet, Tag, Terminal, ThumbsDown, ThumbsUp, Umbrella, Unlock, Wallet, Watch, Wind, ZoomIn, ZoomOut,  } from "@champ18ion/flowicons";
+, Download, Upload, User, Save, Info, Plus, Minus, Image, Video, Music, Calendar, Folder, File, MapPin, Map, Cloud, Sun, Zap, Share, Printer, Monitor, Activity, Anchor, Award, BaggageClaim, Balloon, Ban, Banknote, Baseline, Bath, Battery, Beaker, Bed, Bike, Biohazard, Bird, Bluetooth, Bone, Box, Briefcase, Bug, Building, Bus, Cable, Calculator, Car, Carrot, Cast, Cat, ChefHat, Cherry, Compass, Church, CigaretteOff, Cigarette, Citrus, Clapperboard, Clipboard, CloudRain, Clover, Code, BatteryCharging, BatteryFull, Cpu, CreditCard, Database, EyeOff, FileText, Gift, HardDrive, Headphones, Key, Laptop, Maximize, Mic, Minimize, Navigation, Paperclip, Pause, PenTool, Scissors, Server, Shield, ShoppingCart, SkipForward, Smartphone, Snowflake, StarHalf, StopCircle, Tablet, Tag, Terminal, ThumbsDown, ThumbsUp, Umbrella, Unlock, Wallet, Watch, Wind, ZoomIn, ZoomOut, Filter, Lightbulb, LoaderCircle, LogIn, LogOut, Play, SkipBack, Repeat, Shuffle, Timer, Hourglass, Truck, Wrench, Palette, Trophy, Smile, Ghost, Dice5, Keyboard, Droplet } from "@champ18ion/flowicons";
 import { useState, useMemo } from "react";
 import IconCard from "../components/IconCard";
 import { motion, AnimatePresence } from "framer-motion";
@@ -198,6 +198,26 @@ export default function Playground({ onBack }: PlaygroundProps) {
         { name: "Wind", Component: Wind },
         { name: "ZoomIn", Component: ZoomIn },
         { name: "ZoomOut", Component: ZoomOut },
+        { name: "Filter", Component: Filter },
+        { name: "Lightbulb", Component: Lightbulb },
+        { name: "LoaderCircle", Component: LoaderCircle },
+        { name: "LogIn", Component: LogIn },
+        { name: "LogOut", Component: LogOut },
+        { name: "Play", Component: Play },
+        { name: "SkipBack", Component: SkipBack },
+        { name: "Repeat", Component: Repeat },
+        { name: "Shuffle", Component: Shuffle },
+        { name: "Timer", Component: Timer },
+        { name: "Hourglass", Component: Hourglass },
+        { name: "Truck", Component: Truck },
+        { name: "Wrench", Component: Wrench },
+        { name: "Palette", Component: Palette },
+        { name: "Trophy", Component: Trophy },
+        { name: "Smile", Component: Smile },
+        { name: "Ghost", Component: Ghost },
+        { name: "Dice5", Component: Dice5 },
+        { name: "Keyboard", Component: Keyboard },
+        { name: "Droplet", Component: Droplet },
     ].sort((a, b) => a.name.localeCompare(b.name)), []);
 
     const filteredIcons = icons.filter((icon) =>
