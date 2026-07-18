@@ -225,30 +225,27 @@ export default function Playground({ onBack }: PlaygroundProps) {
     );
 
     return (
-        <div className="flex flex-col min-h-screen bg-[#050505] text-white font-sans selection:bg-brand-500/30 overflow-x-hidden relative">
+        <div className="flex flex-col min-h-screen bg-ink text-fg font-body antialiased overflow-x-hidden">
 
-            {/* Global Noise */}
-            <div className="fixed inset-0 bg-noise z-0 opacity-[0.12] pointer-events-none" />
-
-            {/* Background Gradients */}
-            <div className="fixed top-0 left-0 w-full h-[600px] bg-brand-500/5 blur-[120px] -z-10 pointer-events-none rounded-full translate-x-1/4 -translate-y-1/2" />
-
-
-            {/* Settings FAB */}
-            <div className="fixed bottom-10 right-10 z-50 flex flex-col items-end gap-4">
+            {/* Settings panel */}
+            <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
                 <AnimatePresence>
                     {showSettings && (
                         <motion.div
-                            initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: 20, scale: 0.9 }}
-                            className="bg-neutral-900/80 backdrop-blur-2xl border border-white/10 p-6 rounded-[2rem] shadow-2xl w-80 mb-2"
+                            initial={{ opacity: 0, y: 12 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 12 }}
+                            transition={{ duration: 0.15 }}
+                            className="border border-line bg-surface rounded-lg shadow-xl w-72 overflow-hidden"
                         >
-                            <div className="space-y-8">
-                                <div className="space-y-3">
-                                    <div className="flex justify-between text-xs font-bold text-neutral-500 uppercase tracking-widest">
-                                        <span>Size</span>
-                                        <span className="text-brand-400">{size}px</span>
+                            <div className="px-4 py-3 border-b border-line">
+                                <span className="font-mono text-xs text-mut tracking-wide">DISPLAY</span>
+                            </div>
+                            <div className="p-4 space-y-6">
+                                <div className="space-y-2">
+                                    <div className="flex justify-between font-mono text-xs text-mut">
+                                        <span>size</span>
+                                        <span className="text-accent">{size}px</span>
                                     </div>
                                     <input
                                         type="range"
@@ -256,14 +253,14 @@ export default function Playground({ onBack }: PlaygroundProps) {
                                         max="64"
                                         value={size}
                                         onChange={(e) => setSize(Number(e.target.value))}
-                                        className="w-full h-1.5 bg-white/5 rounded-lg appearance-none cursor-pointer accent-brand-500"
+                                        className="w-full h-1 bg-line rounded-full appearance-none cursor-pointer accent-accent"
                                     />
                                 </div>
 
-                                <div className="space-y-3">
-                                    <div className="flex justify-between text-xs font-bold text-neutral-500 uppercase tracking-widest">
-                                        <span>Stroke</span>
-                                        <span className="text-brand-400">{stroke}px</span>
+                                <div className="space-y-2">
+                                    <div className="flex justify-between font-mono text-xs text-mut">
+                                        <span>stroke</span>
+                                        <span className="text-accent">{stroke}px</span>
                                     </div>
                                     <input
                                         type="range"
@@ -272,30 +269,30 @@ export default function Playground({ onBack }: PlaygroundProps) {
                                         step="0.5"
                                         value={stroke}
                                         onChange={(e) => setStroke(Number(e.target.value))}
-                                        className="w-full h-1.5 bg-white/5 rounded-lg appearance-none cursor-pointer accent-brand-500"
+                                        className="w-full h-1 bg-line rounded-full appearance-none cursor-pointer accent-accent"
                                     />
                                 </div>
 
-                                <div className="space-y-4">
-                                    <label className="text-xs font-bold text-neutral-500 uppercase tracking-widest">Color Preset</label>
-                                    <div className="grid grid-cols-5 gap-3">
-                                        {['#ffffff', '#0ea5e9', '#a855f7', '#f43f5e', '#10b981'].map(c => (
+                                <div className="space-y-3">
+                                    <span className="font-mono text-xs text-mut">color</span>
+                                    <div className="flex items-center gap-2">
+                                        {['#e7ecf3', '#38bdf8', '#a78bfa', '#fb7185', '#34d399'].map((c) => (
                                             <button
                                                 key={c}
                                                 onClick={() => setColor(c)}
-                                                className={`w-9 h-9 rounded-xl border-2 transition-all ${color === c ? 'border-white scale-110 shadow-lg' : 'border-transparent hover:scale-110'}`}
+                                                className={`w-6 h-6 rounded-full border transition-all ${color === c ? 'border-fg scale-110' : 'border-line hover:scale-105'}`}
                                                 style={{ backgroundColor: c }}
                                             />
                                         ))}
-                                    </div>
-                                    <div className="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/10 mt-2">
-                                        <input
-                                            type="color"
-                                            value={color}
-                                            onChange={(e) => setColor(e.target.value)}
-                                            className="w-8 h-8 rounded-lg bg-transparent border-none cursor-pointer overflow-hidden"
-                                        />
-                                        <span className="text-xs font-mono text-neutral-400 uppercase tracking-wider">{color}</span>
+                                        <div className="flex-1 flex items-center gap-2 bg-raise border border-line rounded px-2 py-1 ml-1">
+                                            <input
+                                                type="color"
+                                                value={color}
+                                                onChange={(e) => setColor(e.target.value)}
+                                                className="w-4 h-4 rounded bg-transparent border-none cursor-pointer p-0"
+                                            />
+                                            <span className="font-mono text-[11px] text-mut">{color}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -304,71 +301,61 @@ export default function Playground({ onBack }: PlaygroundProps) {
                 </AnimatePresence>
                 <button
                     onClick={() => setShowSettings(!showSettings)}
-                    className={`w-16 h-16 rounded-2xl shadow-xl transition-all hover:scale-105 active:scale-95 flex items-center justify-center border ${showSettings ? 'bg-white text-black border-white' : 'bg-brand-600 text-white border-brand-500 hover:bg-brand-500'}`}
+                    className={`w-11 h-11 rounded-full border flex items-center justify-center transition-colors ${showSettings ? 'bg-accent border-accent text-ink' : 'bg-surface border-line text-mut hover:text-fg hover:border-faint'}`}
                 >
-                    {showSettings ? <X size={28} /> : <Settings size={28} />}
+                    {showSettings ? <X size={18} /> : <Settings size={18} />}
                 </button>
             </div>
 
             {/* Header */}
-            <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-[#050505]/80 border-b border-white/5 py-4">
-                <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-                    <div className="flex items-center gap-3 cursor-pointer group" onClick={onBack}>
-                        <div className="relative">
-                            <div className="absolute inset-0 bg-brand-500 blur-md opacity-20 group-hover:opacity-40 transition-opacity" />
-                            <FlowIcon size={32} color="#0ea5e9" className="relative group-hover:scale-90 transition-all duration-500" />
-                        </div>
-                        <h1 className="text-xl font-bold tracking-tighter">Flowicons</h1>
-                    </div>
+            <header className="sticky top-0 z-40 w-full bg-ink/90 backdrop-blur-md border-b border-line">
+                <div className="max-w-6xl mx-auto px-6 h-16 flex items-center gap-6">
+                    <button className="flex items-center gap-2.5 shrink-0" onClick={onBack}>
+                        <Wind size={24} color="#38bdf8" />
+                        <span className="font-display font-semibold text-base tracking-tight hidden sm:inline">Flowicons</span>
+                    </button>
 
-                    <div className="flex-1 max-w-xl mx-8 hidden md:block">
-                        <div className="relative group">
-                            <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-neutral-500 group-focus-within:text-brand-500 transition-colors">
-                                <Search size={20} />
+                    <div className="flex-1 max-w-md">
+                        <div className="relative">
+                            <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none text-faint">
+                                <Search size={15} />
                             </div>
                             <input
                                 type="text"
-                                placeholder="Search through 100+ icons..."
-                                className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500/50 transition-all placeholder:text-neutral-600"
+                                placeholder={`Search ${icons.length} icons…`}
+                                className="w-full bg-surface border border-line rounded-md py-2 pl-9 pr-3 text-sm focus:outline-none focus:border-accent transition-colors placeholder:text-faint"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                             />
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-4">
-                        <button
-                            onClick={() => setLoading(!loading)}
-                            className={`flex items-center gap-2.5 px-5 py-2.5 rounded-2xl text-xs font-bold uppercase tracking-widest transition-all border ${loading ? 'bg-brand-500/10 border-brand-500/30 text-brand-400 shadow-[0_0_20px_rgba(14,165,233,0.1)]' : 'bg-white/5 border-white/10 text-neutral-400 hover:bg-white/10'}`}
-                        >
-                            {loading ? <div className="w-3 h-3 rounded-full border-2 border-brand-500 border-t-transparent animate-spin" /> : <div className="w-0 h-0 border-y-[6px] border-y-transparent border-l-[10px] border-l-current ml-0.5" />}
-                            {loading ? 'Playing' : 'Preview All'}
-                        </button>
-                    </div>
-                </div>
-                {/* Mobile Search */}
-                <div className="md:hidden px-6 pt-4">
-                    <div className="relative group">
-                        <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-neutral-500 group-focus-within:text-brand-500 transition-colors">
-                            <Search size={18} />
-                        </div>
-                        <input
-                            type="text"
-                            placeholder="Search icons..."
-                            className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-12 pr-4 text-sm focus:outline-none transition-all placeholder:text-neutral-600"
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                        />
-                    </div>
+                    <button
+                        onClick={() => setLoading(!loading)}
+                        className={`flex items-center gap-2 px-3.5 py-2 rounded-md font-mono text-xs transition-colors border shrink-0 ${loading ? 'bg-accent/10 border-accent/40 text-accent' : 'bg-surface border-line text-mut hover:text-fg hover:border-faint'}`}
+                    >
+                        {loading ? (
+                            <span className="w-2.5 h-2.5 rounded-full border-2 border-accent border-t-transparent animate-spin" />
+                        ) : (
+                            <span className="w-0 h-0 border-y-4 border-y-transparent border-l-[6px] border-l-current" />
+                        )}
+                        loading
+                    </button>
                 </div>
             </header>
 
             {/* Main Content */}
-            <main className="flex-1 p-6 md:p-12 max-w-7xl mx-auto w-full">
-                {/* Grid */}
+            <main className="flex-1 max-w-6xl mx-auto w-full px-6 py-10">
+                <div className="flex items-baseline justify-between mb-6">
+                    <span className="font-mono text-xs text-mut">
+                        {filteredIcons.length} of {icons.length}
+                    </span>
+                    <span className="font-mono text-xs text-faint">click any icon to trigger .play()</span>
+                </div>
+
                 <motion.div
                     layout
-                    className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-6 gap-6 pb-40"
+                    className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 border-t border-l border-line"
                 >
                     <AnimatePresence mode="popLayout">
                         {filteredIcons.map(({ name, Component }) => (
@@ -389,13 +376,13 @@ export default function Playground({ onBack }: PlaygroundProps) {
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        className="text-center py-40"
+                        className="text-center py-32 border border-line rounded-lg bg-surface"
                     >
-                        <div className="inline-flex p-8 rounded-[2rem] bg-white/5 mb-8 text-neutral-700 border border-white/5">
-                            <Search size={48} />
+                        <div className="inline-flex p-5 rounded-full bg-raise mb-6 text-faint">
+                            <Search size={28} />
                         </div>
-                        <h3 className="text-xl font-bold mb-2">No icons match your search</h3>
-                        <p className="text-neutral-500">Try searching for something else or browse the library.</p>
+                        <h3 className="font-display font-semibold text-lg mb-2">No icons match "{search}"</h3>
+                        <p className="text-mut text-sm">Try a different name, or browse the full set.</p>
                     </motion.div>
                 )}
             </main>

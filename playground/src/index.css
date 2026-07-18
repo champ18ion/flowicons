@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+@theme {
+  --font-display: "Clash Display", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Switzer", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace;
+
+  --color-ink: #0b0e14;
+  --color-surface: #10141c;
+  --color-raise: #151a24;
+  --color-line: #1d242f;
+  --color-fg: #e7ecf3;
+  --color-mut: #8a93a3;
+  --color-faint: #545e6e;
+  --color-accent: #38bdf8;
+  --color-accent-deep: #0ea5e9;
+}
+
 :root {
   color-scheme: dark;
 }
@@ -8,10 +24,29 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #0a0a0a;
-  color: #ededed;
-  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  background-color: #0b0e14;
+  color: #e7ecf3;
+  font-family: "Switzer", "Segoe UI", system-ui, Avenir, Helvetica, Arial, sans-serif;
   overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(56, 189, 248, 0.25);
+}
+
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee-x 60s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
 }
 
 @layer utilities {

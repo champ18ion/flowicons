@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
-import { Copy } from "@champ18ion/flowicons";
-
+import { Copy, Checked } from "@champ18ion/flowicons";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface IconCardProps {
@@ -14,7 +13,6 @@ interface IconCardProps {
 
 export default function IconCard({ name, Component, size, strokeWidth, color, loading }: IconCardProps) {
     const [copied, setCopied] = useState(false);
-    const [hovered, setHovered] = useState(false);
     const iconRef = useRef<any>(null);
 
     const handleCopy = (e: React.MouseEvent) => {
@@ -25,73 +23,38 @@ export default function IconCard({ name, Component, size, strokeWidth, color, lo
         setTimeout(() => setCopied(false), 2000);
     };
 
-    const handleIconClick = () => {
-        if (iconRef.current && iconRef.current.play) {
-            iconRef.current.play();
-        }
-    };
-
     return (
         <motion.div
             layout
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-            onClick={handleIconClick}
-            className="group relative aspect-square rounded-3xl bg-[#0a0a0a] border border-white/5 flex flex-col items-center justify-center transition-all duration-500 hover:border-brand-500/30 hover:bg-[#0d0d0d] active:scale-95 cursor-pointer overflow-hidden"
+            className="group relative border border-line bg-surface hover:border-faint transition-colors"
         >
-            {/* Ambient Background Glow */}
-            <div className={`absolute inset-0 bg-brand-500/5 blur-2xl transition-opacity duration-500 ${hovered ? 'opacity-100' : 'opacity-0'}`} />
+            <button
+                onClick={handleCopy}
+                title="Copy component"
+                className="absolute top-2 right-2 z-10 p-1.5 rounded border border-transparent text-faint opacity-0 group-hover:opacity-100 hover:text-fg hover:border-line hover:bg-raise transition-all"
+            >
+                <AnimatePresence mode="wait" initial={false}>
+                    {copied ? (
+                        <motion.span key="ok" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
+                            <Checked size={13} color="#34d399" />
+                        </motion.span>
+                    ) : (
+                        <motion.span key="cp" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
+                            <Copy size={13} />
+                        </motion.span>
+                    )}
+                </AnimatePresence>
+            </button>
 
-            {/* Actions Bar */}
-            <div className={`absolute top-3 right-3 flex items-center gap-1.5 transition-all duration-300 ${hovered ? 'translate-y-0 opacity-100' : '-translate-y-2 opacity-0'}`}>
-                <button
-                    onClick={handleCopy}
-                    className="p-2 rounded-xl bg-white/5 border border-white/10 text-neutral-400 hover:text-white hover:bg-white/10 transition-all backdrop-blur-md"
-                    title="Copy Component"
-                >
-                    <AnimatePresence mode="wait">
-                        {copied ? (
-                            <motion.div
-                                key="check"
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                exit={{ scale: 0 }}
-                            >
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            </motion.div>
-                        ) : (
-                            <Copy size={14} />
-                        )}
-                    </AnimatePresence>
-                </button>
+            {/* The SVG owns its own hover/click handlers. No wrapper transform
+                is applied here, so what you see is exactly the icon's own reaction. */}
+            <div className="aspect-square flex items-center justify-center">
+                <Component ref={iconRef} size={size} strokeWidth={strokeWidth} color={color} loading={loading} />
             </div>
 
-            {/* Icon Wrapper */}
-            <div className="relative z-10 transition-all duration-500 group-hover:scale-110">
-                <Component
-                    ref={iconRef}
-                    size={size}
-                    strokeWidth={strokeWidth}
-                    color={color}
-                    loading={loading}
-                />
+            <div className="border-t border-line px-3 py-2">
+                <span className="font-mono text-[10px] text-mut tracking-wide truncate block">{name}</span>
             </div>
-
-            {/* Label */}
-            <div className={`absolute bottom-4 left-0 w-full px-4 transition-all duration-300 ${hovered ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'}`}>
-                <div className="flex flex-col items-center">
-                    <span className="text-[10px] font-bold text-neutral-300 tracking-wider uppercase mb-1">{name}</span>
-                    <div className="w-4 h-0.5 bg-brand-500 rounded-full" />
-                </div>
-            </div>
-
-            {/* Static Label for non-hover */}
-            {!hovered && (
-                <div className="absolute bottom-4 text-[10px] font-mono text-neutral-600 truncate px-4 max-w-full">
-                    {name}
-                </div>
-            )}
         </motion.div>
     );
 }
-
